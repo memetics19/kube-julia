@@ -1,19 +1,27 @@
 using Kuber 
-
+ using Base
 ctx = KuberContext()
 
 git_repo="https://github.com/bibinwilson/kubernetes-grafana.git"
+git_repo_name="kubernetes-grafana"
 
-
-# function  run_command(git)
-#     run(`git clone $git`)
+function  run_command(git)
+    run(`git clone $git`)
     
-# end
+end
+
+function check_git_repo(git_repo_name)
+    if  !Base.Filesystem.isdir(git_repo_name)
+        run_command(git_repo)
+    else
+        println("Already exists")
+    end
+end
+    
+check_git_repo(git_repo_name)
 
 
-# if (!LoadError):
 
-# run_command(git_repo)
 
 
 grafana_config=kuber_obj(ctx,"""{
